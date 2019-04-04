@@ -1,0 +1,43 @@
+---
+# tasks file for jwflory.znc
+
+- name: install EPEL repository
+  package:
+    state: present
+    name: epel-release
+
+- name: install znc
+  package:
+    state: present
+    name: znc
+
+- name: create znc config directory
+  file:
+    state: directory
+    path: /var/lib/znc/.znc/configs/
+    mode: 0700
+    owner: znc
+    group: znc
+    seuser: system_u
+
+- name: template in znc config file
+  template:
+    src: znc.conf
+    dest: /var/lib/znc/.znc/configs/znc.conf
+    mode: 0600
+    owner: znc
+    group: znc
+    seuser: system_u
+
+- name: add firewall rule for ZNC port
+  firewalld:
+    port: "6697/tcp"
+    immediate: yes
+    permanent: yes
+    state: enabled
+
+- name: start/enable znc systemd service
+  service:
+    name: znc
+    state: started
+    enabled: yes
