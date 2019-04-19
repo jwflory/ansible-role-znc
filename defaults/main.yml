@@ -1,6 +1,7 @@
 ---
 # defaults file for jwflory.znc
 
+znc_fqdn: example.com
 znc_conf:
   admin_user:
     znc_username: znc-admin

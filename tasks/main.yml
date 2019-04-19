@@ -36,6 +36,12 @@
     permanent: yes
     state: enabled
 
+- name: add LetsEncrypt renewal hook script
+  template:
+      src: znc-renew-letsencrypt.sh
+      dest: /etc/letsencrypt/renewal-hooks/deploy/znc-renew-letsencrypt.sh
+      mode: 0755
+
 - name: start/enable znc systemd service
   service:
     name: znc
