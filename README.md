@@ -21,7 +21,11 @@ Note this role requires root access; either run it in a playbook with a global `
 Role Variables
 --------------
 
+For `vault_znc_conf.admin_user.password` settings, use `znc --makepass` to generate the password hashes and salts.
+You must update suggested Ansible Vault variables to your hash and salt for a successful initial login.
+
 ```yaml
+znc_fqdn: example.com
 znc_conf:
   admin_user:
     znc_username: znc-admin
@@ -29,6 +33,9 @@ znc_conf:
     alt_nick: znc-admin_
     ident: zncadmin
     real_name: "Default ZNC admin user"
+    password:
+      hash: "{{ vault_znc_conf.admin_user.password.hash }}"
+      salt: "{{ vault_znc_conf.admin_user.password.salt }}"
     primary_network:
       network_name: freenode
       server: "chat.freenode.net +6697"

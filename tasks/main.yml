@@ -1,5 +1,6 @@
 ---
-# tasks file for jwflory.znc
+- name: import Vault-encrypted variables
+  include_vars: vault.yml
 
 - name: install EPEL repository
   package:
@@ -24,6 +25,7 @@
   template:
     src: znc.conf
     dest: /var/lib/znc/.znc/configs/znc.conf
+    force: no
     mode: 0600
     owner: znc
     group: znc
