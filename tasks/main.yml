@@ -21,7 +21,7 @@
     group: znc
     seuser: system_u
 
-- name: template in znc config file
+- name: install znc config file
   template:
     src: znc.conf
     dest: /var/lib/znc/.znc/configs/znc.conf
@@ -30,6 +30,14 @@
     owner: znc
     group: znc
     seuser: system_u
+
+- name: install znc nginx reverse proxy config
+  template:
+    src: znc-nginx.conf
+    dest: /etc/nginx/conf.d/znc-nginx.conf
+    mode: 0644
+    seuser: system_u
+  notify: restart nginx
 
 - name: add firewall rule for ZNC port
   firewalld:
