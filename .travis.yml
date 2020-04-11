@@ -5,7 +5,9 @@ dist: bionic
 language: python
 python: "3.8"
 cache: pip
-install: "pip install $(pipenv lock --requirements)"
+install:
+  - pipenv lock --requirements > /tmp/requirements.txt
+  - pip install -r /tmp/requirements.txt
 script:
   - yamllint -c .yamllint .
   - ansible-lint .
